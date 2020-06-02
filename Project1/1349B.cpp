@@ -46,9 +46,33 @@ int main()
 			}
 		}
 
-		for (long long i = 0; i < states.size(); i++)
+		while (true)
 		{
 			long long radius = 1;
+
+			auto j = -1;
+
+			for (int i = 0; i < states.size() - 1; i++)
+				if (states[i] == 0 && states[i + 1] == 1 && (i != states.size() - 2))
+				{
+					j = i + 1;
+					break;
+				}
+
+			if (j == -1)
+			{
+				for (int i = 0; i < states.size() - 1; i++)
+					if (states[i] == 1 && states[i + 1] == 0 && (i != 0))
+					{
+						j = i;
+						break;
+					}
+
+				if (j == -1) break;
+			}
+
+			auto i = j;
+
 			auto whichIndex = i;
 
 			if (states[i] == 0)
@@ -59,6 +83,8 @@ int main()
 				states[whichIndex - radius] = states[whichIndex + radius] = states[whichIndex];
 				radius++;
 			}
+
+			i = whichIndex - radius + 1;
 		}
 
 		auto it = std::find(states.begin(), states.end(), 0);
