@@ -17,21 +17,19 @@ int main()
 	int setSize;
 	std::cin >> setSize;
 
-	std::cin.get();
+	std::vector<long long> numbers;
 
-	std::string numbersString;
-	std::getline(std::cin, numbersString);
-	std::istringstream iNumbers(numbersString);
+	while (setSize--)
+	{
+		long long num;
+		std::cin >> num;
+		numbers.push_back(num);
+	}
 
-	std::vector<int> numbers;
+	std::vector<long long> gcds;
+	std::deque<long long> localGcds;
 
-	std::copy(std::istream_iterator<int>(iNumbers), std::istream_iterator<int>(),
-			std::back_inserter(numbers));
-
-	std::vector<int> gcds;
-	std::deque<int> localGcds;
-
-	for (int i = numbers.size() - 1; i >= 0; i--)
+	for (long long i = numbers.size() - 1; i >= 0; i--)
 	{
 		localGcds.push_front(std::gcd(numbers[i], localGcds.empty() ? numbers[i] : localGcds.front()));
 	}
@@ -50,7 +48,7 @@ int main()
 		gcds.push_back(gcdViaLcm);
 	}
 
-	auto res = std::accumulate(gcds.begin(), gcds.end(), gcds[0], std::gcd<int, int>);
+	auto res = std::accumulate(gcds.begin(), gcds.end(), gcds[0], std::gcd<long long, long long>);
 
 	std::cout << res;
 
