@@ -10,6 +10,7 @@
 #include <numeric>
 #include <iomanip>
 #include <numeric>
+#include <deque>
 
 int main()
 {
@@ -28,6 +29,12 @@ int main()
 			std::back_inserter(numbers));
 
 	std::vector<int> gcds;
+	std::deque<int> localGcds;
+
+	for (int i = numbers.size() - 1; i >= 0; i--)
+	{
+		localGcds.push_front(std::gcd(numbers[i], localGcds.empty() ? numbers[i] : localGcds.front()));
+	}
 
 	for (auto i = 0; i < numbers.size() - 1; i++)
 	{
@@ -39,8 +46,7 @@ int main()
 			gcd(lcm(c,d), lcm(c, e), ..lcm(c,z)) = 
 			lcm(gcd(a,b), gcd(a,c)) = gcd(a, lcm(b, c))
 		*/
-		auto gcdOnRotated = std::accumulate(numbers.begin() + i + 1, numbers.end(), numbers[i+1], std::gcd<int, int>);
-		auto gcdViaLcm = std::lcm(numbers[i], gcdOnRotated);
+		auto gcdViaLcm = std::lcm(numbers[i], localGcds[i+1]);
 		gcds.push_back(gcdViaLcm);
 	}
 
