@@ -29,20 +29,22 @@ int main()
 
 	std::vector<int> gcds;
 
-	for (auto i = 0; i < numbers.size(); i++)
+	for (auto i = 0; i < numbers.size() - 1; i++)
 	{
 		/*
 			gcd(lcm(a,b), lcm(a,c)) = lcm(a, gcd(b, c))
 			gcd(lcm(a,b), lcm(a,c), lcm(a,d)) = lcm(a, gcd(b, c, d))
+			gcd(lcm(b,c), lcm(b,d)) = lcm(b, gcd(c,d))
+
+			gcd(lcm(c,d), lcm(c, e), ..lcm(c,z)) = 
 			lcm(gcd(a,b), gcd(a,c)) = gcd(a, lcm(b, c))
 		*/
-		std::rotate(numbers.begin(), numbers.begin() + 1, numbers.end());
-		auto gcdOnRotated = std::accumulate(numbers.begin(), numbers.end() - 1, numbers[0], std::gcd<int, int>);
-		auto gcdViaLcm = std::lcm(numbers.back(), gcdOnRotated);
+		auto gcdOnRotated = std::accumulate(numbers.begin() + i + 1, numbers.end(), numbers[i+1], std::gcd<int, int>);
+		auto gcdViaLcm = std::lcm(numbers[i], gcdOnRotated);
 		gcds.push_back(gcdViaLcm);
 	}
 
-	auto res = std::accumulate(gcds.begin(), gcds.end() - 1, gcds[0], std::gcd<int, int>);
+	auto res = std::accumulate(gcds.begin(), gcds.end(), gcds[0], std::gcd<int, int>);
 
 	std::cout << res;
 
