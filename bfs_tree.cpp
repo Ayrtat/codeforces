@@ -11,6 +11,7 @@
 #include <vector>
 #include <deque>
 #include <sstream>
+#include <set>
 
 int main()
 {
@@ -22,7 +23,7 @@ int main()
 	input_as_string_stream >> test_cases;
 
 	while(test_cases--) {
-		input_as_string_stream.clear(__state);
+		input_as_string_stream.clear();
 		std::getline(std::cin, input_string);
 		input_as_string_stream.str(input_string);
 
@@ -61,16 +62,16 @@ int main()
 		{
 			auto curr { q.front() };
 			q.pop_front();
-			auto& adjacent_nodes = adjacent_with(curr[0]);
+			auto& adjacent_nodes = adjacent_with[std::get<0>(curr)];
 
 			for(const auto& node : adjacent_nodes) {
-				auto& tuple = Graph[curr][node];
+				auto tuple { Graph[std::get<0>(curr)][node] };
 
-				auto a = tuple[0]; auto b = tuple[1]; auto k = tuple[2];
+				auto a = std::get<0>(tuple); auto b = std::get<1>(tuple); auto k = std::get<2>(tuple);
 
-				auto x = curr[2];
-				auto _k = curr[1];
-				auto total = curr[3];
+				auto x = std::get<2>(curr);
+				auto _k = std::get<1>(curr);
+				auto total = std::get<3>(curr);
 
 
 				auto after_pass = a * x + b;
