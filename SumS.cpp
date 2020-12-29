@@ -6,6 +6,11 @@
 #include <numeric>
 #include <iterator>
 
+/*
+Imagine a game where a player can score 1, 2,1,2, or 44 runs. Given a score, nn, find the total number of ways to score nn runs.
+For example, to score 33 runs, a player can score in the following 3 ways
+*/
+
 int scoring_options(int n) {
 	std::vector<int> numbers(n);
 
