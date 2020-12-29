@@ -51,10 +51,10 @@ public:
 		/*
 			     1  2  3  4  5  6  7  8
 			{1}  T  F  F  F  F  F  F  F
- 		 {1, 1}  T  T  F  F  F  F  F  F 
-	  {1, 1, 3}  T  T  T  T  T  F  F  F
-   {1, 1, 3, 4}  T
-{1, 1, 3, 4, 7}  T
+ 		     {1, 1}  T  T  F  F  F  F  F  F 
+	          {1, 1, 3}  T  T  T  T  T  F  F  F
+               {1, 1, 3, 4}  T
+            {1, 1, 3, 4, 7}  T
 		*/
 
 		return states.back().back();
