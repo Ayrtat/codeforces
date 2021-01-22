@@ -151,6 +151,9 @@ int main(int argc, char *argv[]) {
 
         q.push_back(j);
 
+        std::set<int> considered;
+
+
         std::vector<int> heighest(nodes.size(), 0);
         heighest[j] = Graph[j][j];
 
@@ -158,10 +161,13 @@ int main(int argc, char *argv[]) {
             std::vector<int> adjacent_nodes;
 
             auto curr{q.front()};
+
+            considered.insert(nodes[curr].type);
+
             q.pop_front();
 
             for (int i = 0; i < Graph[0].size(); i++) {
-                if (Graph[curr][i] > 0 && i != curr) {
+                if (Graph[curr][i] > 0 && i != curr && !considered.count(i)) {
                     adjacent_nodes.push_back(i);
                 }
             }
